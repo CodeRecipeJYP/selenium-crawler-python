@@ -1,20 +1,18 @@
 #-*- coding: utf-8 -*-
 import time
 
+import os
 from selenium.webdriver.common.keys import Keys
-import selenium.webdriver.chrome.service as service
 from selenium import webdriver
 
 from src.config import MY_ACCOUNT, MY_PASSWORD
 
 
 def open_browser():
-    CHROMEDRIVER_PATH = '/Users/jaeyoung/workspace/python/PycharmProjects/정리필요/kucc_seminar_crawling/chromedriver'
-    chrome_service = service.Service(CHROMEDRIVER_PATH)
-    chrome_service.start()
+    CHROMEDRIVER_PATH = os.path.join(os.getcwd(), 'chromedriver')
+    driver = webdriver.Chrome(CHROMEDRIVER_PATH)
 
-    capabilities = {'chrome.binary': CHROMEDRIVER_PATH}
-    return webdriver.Remote(chrome_service.service_url, capabilities)
+    return driver
 
 def login(driver):
     ID_NAME = "user_id"
@@ -57,7 +55,7 @@ TARGET_HOST = 'https://www.koreapas.com/'
 TARGET_ENDPOINT = ""
 TARGET_URL = TARGET_HOST+TARGET_ENDPOINT
 BOARD_NAME ="소비자포럼"
-KEYWORD = "전주"
+KEYWORD = "안암"
 
 driver = open_browser()
 goto_site(driver,TARGET_URL)
